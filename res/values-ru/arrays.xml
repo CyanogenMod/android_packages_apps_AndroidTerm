@@ -44,7 +44,7 @@
     </string-array>
 
     <string-array name="entries_controlkey_preference">
-        <item>Jog ball</item>
+        <item>Трекбол</item>
         <item>Клавиша \@</item>
         <item>Левый Alt</item>
         <item>Правый Alt</item>

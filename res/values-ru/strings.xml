@@ -18,7 +18,7 @@
    <string name="application_terminal">Эмулятор Терминала</string>
    <string name="preferences">Настройки</string>
    <string name="reset">Сбросить терм.</string>
-   <string name="send_email">Отправит Email</string>
+   <string name="send_email">Отправить Email</string>
    <string name="special_keys">Специальные клавиши</string>
    <string name="toggle_soft_keyboard">Экранная клавиатура</string>
    <string name="edit_text">Изменить</string>
@@ -37,14 +37,14 @@
    <string name="dialog_title_color_preference">Цвет текста</string>
    <string name="keyboard_preferences">Клавиатура</string>
    <string name="title_controlkey_preference">Клавиша Control</string>
-   <string name="summary_controlkey_preference">Выберите что будет клавишей Control.</string>
+   <string name="summary_controlkey_preference">Выберите, что будет клавишей Control.</string>
    <string name="dialog_title_controlkey_preference">Клавиша Control</string>
    <string name="title_ime_preference">Способ ввода</string>
    <string name="summary_ime_preference">Выберите способ ввода для экранной клавиатуры.</string>
    <string name="dialog_title_ime_preference">Способ ввода</string>
    <string name="shell_preferences">Командная оболочка</string>
    <string name="title_shell_preference">Командная строка</string>
-   <string name="summary_shell_preference">Укажите строку обращения к командной оболочки.</string>
+   <string name="summary_shell_preference">Укажите строку обращения к командной оболочке.</string>
    <string name="dialog_title_shell_preference">Оболочка</string>
    <string name="title_initialcommand_preference">Команды запуска</string>
    <string name="summary_initialcommand_preference">Передаются облочке при запуске терминала.</string>

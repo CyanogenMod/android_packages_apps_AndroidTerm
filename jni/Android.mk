@@ -23,7 +23,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_TAGS := optional
 
 # This is the target being built.
-LOCAL_MODULE:= libandroidterm2
+LOCAL_MODULE:= libjackpal-androidterm3
 
 # All of the source files that we will compile.
 LOCAL_SRC_FILES:= \

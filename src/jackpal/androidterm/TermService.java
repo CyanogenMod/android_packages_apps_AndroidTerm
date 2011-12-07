@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package jackpal.androidterm2;
+package jackpal.androidterm;
 
 import android.app.Service;
+import android.os.Binder;
 import android.os.IBinder;
 import android.content.Intent;
 import android.util.Log;
@@ -24,13 +25,29 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 
-public class TermService extends Service
+import jackpal.androidterm.model.SessionFinishCallback;
+import jackpal.androidterm.model.UpdateCallback;
+import jackpal.androidterm.session.TermSession;
+import jackpal.androidterm.util.ServiceForegroundCompat;
+import jackpal.androidterm.util.SessionList;
+
+public class TermService extends Service implements SessionFinishCallback
 {
     /* Parallels the value of START_STICKY on API Level >= 5 */
     private static final int COMPAT_START_STICKY = 1;
 
     private static final int RUNNING_NOTIFICATION = 1;
     private ServiceForegroundCompat compat;
+
+    private SessionList mTermSessions;
+
+    public class TSBinder extends Binder {
+        TermService getService() {
+            Log.i("TermService", "Activity binding to service");
+            return TermService.this;
+        }
+    }
+    private final IBinder mTSBinder = new TSBinder();
 
     @Override
     public void onStart(Intent intent, int flags) {
@@ -43,15 +60,17 @@ public class TermService extends Service
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        Log.i("TermService", "Activity called onBind()");
+        return mTSBinder;
     }
 
     @Override
     public void onCreate() {
         compat = new ServiceForegroundCompat(this);
+        mTermSessions = new SessionList();
 
         /* Put the service in the foreground. */
-        Notification notification = new Notification(R.drawable.app_terminal, getText(R.string.service_notify_text), System.currentTimeMillis());
+        Notification notification = new Notification(R.drawable.ic_stat_service_notification_icon, getText(R.string.service_notify_text), System.currentTimeMillis());
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
         Intent notifyIntent = new Intent(this, Term.class);
         notifyIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -59,13 +78,25 @@ public class TermService extends Service
         notification.setLatestEventInfo(this, getText(R.string.application_terminal), getText(R.string.service_notify_text), pendingIntent);
         compat.startForeground(RUNNING_NOTIFICATION, notification);
         
-        Log.d(Term.LOG_TAG, "TermService started");
+        Log.d(TermDebug.LOG_TAG, "TermService started");
         return;
     }
 
     @Override
     public void onDestroy() {
         compat.stopForeground(true);
+        for (TermSession session : mTermSessions) {
+            session.finish();
+        }
+        mTermSessions.clear();
         return;
+    }
+
+    public SessionList getSessions() {
+        return mTermSessions;
+    }
+
+    public void onSessionFinish(TermSession session) {
+        mTermSessions.remove(session);
     }
 }

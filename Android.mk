@@ -32,7 +32,7 @@ LOCAL_OVERRIDES_PACKAGES := Term
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_REQUIRED_MODULES := libandroidterm2
+LOCAL_REQUIRED_MODULES := libjackpal-androidterm3
 
 include $(BUILD_PACKAGE)
 
